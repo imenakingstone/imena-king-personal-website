@@ -1,0 +1,4 @@
+import {createCipheriv,createDecipheriv,randomBytes} from 'node:crypto';
+const key=()=>{const value=process.env.TOKEN_ENCRYPTION_KEY||'';if(!/^[a-f0-9]{64}$/i.test(value))throw new Error('TOKEN_ENCRYPTION_KEY must be a 64-character hexadecimal key');return Buffer.from(value,'hex');};
+export function encryptToken(token){const iv=randomBytes(12);const cipher=createCipheriv('aes-256-gcm',key(),iv);const encrypted=Buffer.concat([cipher.update(token,'utf8'),cipher.final()]);return {encryptedToken:encrypted.toString('base64'),tokenIv:iv.toString('base64'),tokenAuthTag:cipher.getAuthTag().toString('base64')};}
+export function decryptToken(account){const decipher=createDecipheriv('aes-256-gcm',key(),Buffer.from(account.tokenIv,'base64'));decipher.setAuthTag(Buffer.from(account.tokenAuthTag,'base64'));return Buffer.concat([decipher.update(Buffer.from(account.encryptedToken,'base64')),decipher.final()]).toString('utf8');}
