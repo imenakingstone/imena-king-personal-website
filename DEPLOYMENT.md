@@ -22,7 +22,7 @@ Set these environment variables in the hosting dashboard:
 - `JWT_SECRET` — random secret with at least 32 characters
 - `JWT_EXPIRES_IN=8h`
 - `ADMIN_EMAIL` and `ADMIN_PASSWORD` — only needed for initial admin seeding
-- `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET` — required for image uploads
+- `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET` — required for image uploads\n- `META_APP_ID`, `META_APP_SECRET`, `META_REDIRECT_URI` — required for Instagram Login\n- `META_GRAPH_VERSION=v26.0` — API version setting\n- `TOKEN_ENCRYPTION_KEY` — 64 hexadecimal characters (32 random bytes) for encrypting the Instagram token at rest
 
 After the API service is running, use its shell once to run `npm run seed:admin`. Do not put credentials in GitHub files or chat.
 
