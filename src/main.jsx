@@ -7,6 +7,7 @@ import {
   Coffee, ShoppingBag, Sparkles, Play, ExternalLink
 } from 'lucide-react';
 import './styles.css';
+import MediaKit from './MediaKit.jsx';
 
 const projects = [
   { number: '01', title: 'Rwanda Today', type: 'Digital publishing platform', description: 'A digital newspaper concept focused on bringing clear, accessible news and stories to readers in Rwanda.', icon: Newspaper, tags: ['React', 'Node.js', 'MongoDB'], status: 'In development' },
@@ -24,7 +25,7 @@ function Reveal({ children, delay = 0, className = '' }) {
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const closeMenu = () => setMenuOpen(false);
-  const nav = [['About', '#about'], ['Projects', '#projects'], ['Skills', '#skills'], ['Journey', '#journey'], ['Contact', '#contact']];
+  const nav = [['About', '#about'], ['Projects', '#projects'], ['Skills', '#skills'], ['Journey', '#journey'], ['Media kit', '#media'], ['Contact', '#contact']];
 
   return (
     <div className="site-shell">
@@ -85,6 +86,8 @@ function App() {
 
         <section className="content-section section-wrap interests-section"><Reveal><div className="section-kicker">05 / BEYOND THE SCREEN</div><h2>More than<br /><span className="gold-text">just code.</span></h2><div className="interest-cards"><div><Camera /><h3>Digital storytelling</h3><p>Finding engaging ways to share stories, ideas and moments.</p></div><div><Newspaper /><h3>Media & culture</h3><p>Following the people, creativity and conversations shaping Rwanda.</p></div><div><Sparkles /><h3>Creative technology</h3><p>Exploring tools that make it easier to bring ideas to life.</p></div></div></Reveal></section>
 
+        <MediaKit />
+
         <section className="contact-section" id="contact"><div className="section-wrap contact-inner"><Reveal><div className="section-kicker">06 / START A CONVERSATION</div><h2>Have something<br />in <span className="gold-text">mind?</span></h2><p>I'm open to conversations, ideas, collaborations and opportunities to learn and build.</p><a className="button button-gold" href="mailto:hello@imenaking.com">Get in touch <ArrowUpRight size={17} /></a><span className="contact-note">Replace this placeholder email with your preferred contact address before launch.</span></Reveal></div></section>
       </main>
 
@@ -93,4 +96,8 @@ function App() {
   );
 }
 
-createRoot(document.getElementById('root')).render(<React.StrictMode><App /></React.StrictMode>);
+if (window.location.pathname.startsWith('/admin')) {
+  import('./admin.jsx');
+} else {
+  createRoot(document.getElementById('root')).render(<React.StrictMode><App /></React.StrictMode>);
+}
