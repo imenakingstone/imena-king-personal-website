@@ -6,7 +6,10 @@ const schema=z.object({
  CLIENT_ORIGIN:z.string().url().default('http://localhost:5173'),
  MONGODB_URI:z.string().min(1,'MONGODB_URI is required'),
  JWT_SECRET:z.string().min(32,'JWT_SECRET must contain at least 32 characters'),
- JWT_EXPIRES_IN:z.string().default('8h')
+ JWT_EXPIRES_IN:z.string().default('8h'),
+ CLOUDINARY_CLOUD_NAME:z.string().optional(),
+ CLOUDINARY_API_KEY:z.string().optional(),
+ CLOUDINARY_API_SECRET:z.string().optional()
 });
 const parsed=schema.safeParse(process.env);
 if(!parsed.success){console.error('Invalid server environment:',parsed.error.flatten().fieldErrors);process.exit(1);}
