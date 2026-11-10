@@ -1,11 +1,11 @@
-name: Website CI
+name: Website and API CI
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
 jobs:
-  build:
+  frontend:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -14,3 +14,14 @@ jobs:
           node-version: 20
       - run: npm install
       - run: npm run build
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+        working-directory: server
+      - name: Check backend JavaScript syntax
+        run: find server/src -name '*.js' -print0 | xargs -0 -n1 node --check
