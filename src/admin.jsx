@@ -10,7 +10,8 @@ function AdminApp(){
  const [form,setForm]=useState({title:'',description:'',kind:'link',url:'',thumbnailUrl:'',platform:'',caption:'',featured:false,published:false,sortOrder:0});
  const request=async(path,options={})=>{const response=await fetch(API+path,{...options,headers:{'Content-Type':'application/json',...(token?{Authorization:'Bearer '+token}:{}),...(options.headers||{})}});if(response.status===204)return null;const data=await response.json().catch(()=>({}));if(!response.ok)throw new Error(data.message||'Request failed');return data;};
  const load=async()=>{try{const data=await request('/media/manage');setItems(data.items||[]);}catch(e){setError(e.message);}};
- const loadInstagram=async()=>{try{setIgStatus(await request('/instagram/status'));}catch(e){setError(e.message);}};\n useEffect(()=>{if(token){load();loadInstagram();}},[token]);
+ const loadInstagram=async()=>{try{setIgStatus(await request('/instagram/status'));}catch(e){setError(e.message);}};
+ useEffect(()=>{if(token){load();loadInstagram();}},[token]);
  const login=async e=>{e.preventDefault();setBusy(true);setError('');try{const data=await request('/auth/login',{method:'POST',body:JSON.stringify({email,password})});sessionStorage.setItem('ik_admin_token',data.token);setToken(data.token);setPassword('');}catch(e){setError(e.message);}finally{setBusy(false);}};
  const logout=()=>{sessionStorage.removeItem('ik_admin_token');setToken('');setItems([]);};
  const connectInstagram=async()=>{setBusy(true);setError('');try{const data=await request('/instagram/connect',{method:'POST',body:JSON.stringify({})});window.location.href=data.authorizationUrl;}catch(e){setError(e.message);setBusy(false);}};
