@@ -51,7 +51,7 @@ Fill in the local `server/.env` before seeding or starting the API. Use a strong
 - `POST /api/media` (admin)
 - `PATCH /api/media/:id` (admin)
 - `DELETE /api/media/:id` (admin)
-- `POST /api/uploads/signature` (admin)
+- `POST /api/uploads/signature` (admin)\n- `POST /api/instagram/connect` (admin)\n- `GET /api/instagram/callback` (Meta OAuth callback)\n- `GET /api/instagram/status` (admin)\n- `POST /api/instagram/sync` (admin)\n- `GET /api/instagram/posts` (public selected-account feed)
 
 ## Verify
 GitHub Actions runs the frontend production build and backend JavaScript syntax checks on pushes to `main`. See the Actions tab for the latest result.
@@ -60,7 +60,7 @@ GitHub Actions runs the frontend production build and backend JavaScript syntax 
 1. Configure Cloudflare Pages and deploy the frontend.
 2. Deploy the API and connect MongoDB Atlas.
 3. Add Cloudinary credentials for image uploads.
-4. Choose and authorize the Instagram Professional account through Meta's official API.
+4. Create/configure a Meta developer app, then authorize the chosen Instagram Professional account through Instagram Login.
 5. Confirm the public contact email and exact social profile URLs.
 6. Replace the placeholder website URL in the sitemap and robots file.
 
