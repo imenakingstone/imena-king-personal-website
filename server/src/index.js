@@ -7,6 +7,7 @@ import { env } from './config/env.js';
 import authRoutes from './routes/auth.js';
 import mediaRoutes from './routes/media.js';
 import uploadRoutes from './routes/uploads.js';
+import instagramRoutes from './routes/instagram.js';
 const app=express();
 app.disable('x-powered-by');
 app.use(helmet());
@@ -17,6 +18,7 @@ app.get('/api/health',(req,res)=>res.json({status:'ok',service:'imena-king-api',
 app.use('/api/auth',authRoutes);
 app.use('/api/media',mediaRoutes);
 app.use('/api/uploads',uploadRoutes);
+app.use('/api/instagram',instagramRoutes);
 app.use((req,res)=>res.status(404).json({message:'Route not found'}));
 app.use((err,req,res,next)=>{console.error(err);res.status(500).json({message:'An unexpected server error occurred'});});
 await mongoose.connect(env.MONGODB_URI);
