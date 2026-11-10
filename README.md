@@ -1,39 +1,69 @@
-# Imena King — Personal Website
+# Imena King — Personal Website & Creator Platform
 
-A responsive personal portfolio and creator platform for Imena King, based in Kigali, Rwanda.
+A responsive personal website and content-management foundation for Imena King, based in Kigali, Rwanda.
 
-## Current stack
-- React 19
-- Vite 6
-- JavaScript
-- CSS
-- Framer Motion
-- Lucide React
+## Stack
+- Public website: React 19, Vite 6, CSS, Framer Motion, Lucide React
+- Admin: React-based private media-kit manager at `/admin`
+- API: Node.js, Express, MongoDB/Mongoose, JWT authentication
+- Media: signed Cloudinary image upload foundation; YouTube embeds and direct video links
+- CI: GitHub Actions frontend production build and backend syntax validation
 
-## Run locally
+## Repository structure
+```
+src/                  Public React website and media kit
+src/admin.jsx         Private media-kit admin interface
+server/src/           Express API, authentication, models and routes
+public/               Favicon, social preview, SEO and security files
+.github/workflows/    Automated build checks
+DEPLOYMENT.md         Hosting and configuration checklist
+```
+
+## Run the public website
 ```bash
 npm install
 npm run dev
 ```
 
-Create a production build:
+## Run the API
 ```bash
-npm run build
-npm run preview
+cd server
+npm install
+copy .env.example .env
+npm run seed:admin
+npm run dev
 ```
+Fill in the local `server/.env` before seeding or starting the API. Use a strong unique admin password and a random JWT secret. Never commit `.env`.
 
-## Project status
-The first public-facing frontend foundation is being built. The current version includes an introduction, about section, project list, learning/skills section, journey, interests and contact section.
+## Admin and media kit
+- Public media library: website section with link, image, YouTube and direct-video cards.
+- Admin login: `/admin`.
+- Admin media tools: add, publish/draft and delete media items.
+- Image uploads use a server-signed Cloudinary upload flow. Cloudinary credentials must be configured in the API host.
+- Admin access requires the first account to be created using `npm run seed:admin`.
 
-The project list and skills are presented as learning and in-progress work. Replace placeholder contact details and social destinations with confirmed accounts before launch.
+## API endpoints
+- `GET /api/health`
+- `POST /api/auth/login`
+- `GET /api/auth/me`
+- `GET /api/media`
+- `GET /api/media/manage` (admin)
+- `POST /api/media` (admin)
+- `PATCH /api/media/:id` (admin)
+- `DELETE /api/media/:id` (admin)
+- `POST /api/uploads/signature` (admin)
 
-## Planned platform phases
-1. Public responsive website and SEO foundation.
-2. Admin dashboard with secure authentication.
-3. Backend API and MongoDB content management.
-4. Media-kit library for links, descriptions, images, YouTube videos and downloadable assets.
-5. Authorized Instagram account connection and post display.
-6. Analytics, search indexing and deployment.
+## Verify
+GitHub Actions runs the frontend production build and backend JavaScript syntax checks on pushes to `main`. See the Actions tab for the latest result.
 
-## Environment and security
-Never commit passwords, API tokens, database connection strings or private keys. Use environment variables and an untracked `.env` file for local development.
+## Still requires owner setup
+1. Configure Cloudflare Pages and deploy the frontend.
+2. Deploy the API and connect MongoDB Atlas.
+3. Add Cloudinary credentials for image uploads.
+4. Choose and authorize the Instagram Professional account through Meta's official API.
+5. Confirm the public contact email and exact social profile URLs.
+6. Replace the placeholder website URL in the sitemap and robots file.
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for the launch checklist.
+
+**Security:** Never commit database URIs, passwords, JWT secrets, Cloudinary secrets or Meta tokens. Do not send secrets in chat.
