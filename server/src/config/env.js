@@ -9,7 +9,12 @@ const schema=z.object({
  JWT_EXPIRES_IN:z.string().default('8h'),
  CLOUDINARY_CLOUD_NAME:z.string().optional(),
  CLOUDINARY_API_KEY:z.string().optional(),
- CLOUDINARY_API_SECRET:z.string().optional()
+ CLOUDINARY_API_SECRET:z.string().optional(),
+ META_APP_ID:z.string().optional(),
+ META_APP_SECRET:z.string().optional(),
+ META_REDIRECT_URI:z.string().optional(),
+ META_GRAPH_VERSION:z.string().optional(),
+ TOKEN_ENCRYPTION_KEY:z.string().optional()
 });
 const parsed=schema.safeParse(process.env);
 if(!parsed.success){console.error('Invalid server environment:',parsed.error.flatten().fieldErrors);process.exit(1);}
